@@ -29,25 +29,29 @@ jobs:
           node-version: "18"
           cache: 'pnpm'
       
+      - name: Clear npm cache
+        run: npm cache clean --force
+
       - name: Install pnpm
         run: npm install -g pnpm
 
-      - name: Debug List pnpm installation directory
+      - name: Update PATH
+        run: echo "$HOME/.npm-global/bin" >> $GITHUB_PATH  # Or "$(npm root -g)/bin" if that works better
+
+      - name: Debug: List pnpm installation directory
         run: |
           echo "Global pnpm installation directory:"
           echo "$(npm root -g)/pnpm"
           ls -la "$(npm root -g)/pnpm"
 
-      - name: Debug Print PATH after pnpm install
-        run: |
-          echo "PATH: $PATH"
+      - name: Debug: Print PATH after pnpm install and PATH update
+        run: echo "PATH: $PATH"
 
       - name: Install dependencies
         run: pnpm install
 
-      - name: Debug Print PATH before pnpm install
-        run: |
-          echo "PATH: $PATH"
+      - name: Debug: Print PATH before pnpm install
+        run: echo "PATH: $PATH"
       
       - name: Build with Next.js
         run: pnpm build
