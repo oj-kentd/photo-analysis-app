@@ -28,6 +28,9 @@ jobs:
         with:
           node-version: "18"
 
+      - name: Install pnpm
+        run: npm install -g pnpm
+
       - name: Debug Print PATH before install
         run: echo "PATH $PATH"
 
