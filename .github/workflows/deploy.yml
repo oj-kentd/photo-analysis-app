@@ -46,8 +46,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Debug Print PATH
-        run: echo "PATH= $PATH"
+      - name: Explicitly Install next-auth
+        run: pnpm add next-auth@latest
 
       - name: Build with Next.js
         run: pnpm build
