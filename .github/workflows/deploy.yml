@@ -32,17 +32,23 @@ jobs:
         run: npm install -g pnpm
 
       - name: Add pnpm to PATH
-        run: echo "$HOME/.npm-global/bin" >> $GITHUB_PATH # Or use  echo "$(npm root -g)/bin" >> $GITHUB_PATH
+        run: echo "$HOME/.npm-global/bin" >> $GITHUB_PATH
 
-      - name: Debug Print PATH before install
-        run: echo "PATH $PATH"
+      - name: Cache Node.js Modules
+        uses: actions/cache@v3
+        id: cache-modules
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: pnpm install
 
-      - name: Debug Print PATH after install
-        run: echo "PATH $PATH"
-      
+      - name: Debug Print PATH
+        run: echo "PATH: $PATH"
+
       - name: Build with Next.js
         run: pnpm build
         env:
