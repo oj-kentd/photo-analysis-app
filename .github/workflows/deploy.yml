@@ -32,8 +32,20 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm
 
+      - name: Debug: List pnpm installation directory
+        run: |
+          echo "Global pnpm installation directory:"
+          echo "$(npm root -g)/pnpm"
+          ls -la "$(npm root -g)/pnpm"
+
+      - name: Debug: Print PATH after pnpm install
+        run: echo "PATH: $PATH"
+
       - name: Install dependencies
         run: pnpm install
+
+      - name: Debug: Print PATH before pnpm install
+        run: echo "PATH: $PATH"
       
       - name: Build with Next.js
         run: pnpm build
