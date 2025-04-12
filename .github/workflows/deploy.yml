@@ -47,7 +47,7 @@ jobs:
         run: pnpm install
 
       - name: Debug Print PATH
-        run: echo "PATH: $PATH"
+        run: echo "PATH= $PATH"
 
       - name: Build with Next.js
         run: pnpm build
