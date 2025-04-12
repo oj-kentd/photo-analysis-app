@@ -34,6 +34,9 @@ jobs:
         with:
           static_site_generator: next
       
+      - name: Install pnpm
+        run: npm install -g pnpm
+
       - name: Install dependencies
         run: pnpm install
       
@@ -47,8 +50,8 @@ jobs:
       
       - name: Verify build directory
         run: |
-          if [ ! -d "./out" ]; then
-            echo "Error: Build output directory './out' does not exist."
+          if [ ! -d "./.next" ]; then
+            echo "Error: Build output directory './.next' does not exist."
             exit 1
           fi
 
