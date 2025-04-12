@@ -3,10 +3,19 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { PhotoPicker } from "@/components/photos/photo-picker";
-import { PhotoAnalyzer } from "@/components/analysis/photo-analyzer";
 import { AlbumCreator } from "@/components/photos/album-creator";
 import { LoginButton } from "@/components/auth/login-button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import dynamic from 'next/dynamic';
+
+// Dynamically import PhotoAnalyzer, disabling SSR and adding a loading indicator
+const PhotoAnalyzer = dynamic(
+  () => import('@/components/analysis/photo-analyzer').then(mod => mod.PhotoAnalyzer),
+  { 
+    ssr: false,
+    loading: () => <p>Loading analyzer...</p> 
+  }
+);
 
 // Define types for selected photos and analysis results
 interface SelectedPhoto {

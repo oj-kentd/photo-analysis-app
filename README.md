@@ -26,25 +26,26 @@ Follow these steps to set up your Google OAuth credentials:
 1. Go to the [Google Cloud Console](https://console.cloud.google.com/)
 2. Create a new project
 3. Enable the Google Photos Library API
-4. Configure the OAuth consent screen
-5. Create OAuth 2.0 credentials
-6. Add authorized JavaScript origins and redirect URIs
-
-Detailed instructions are available in the `src/app/api/auth/google-credentials-guide.md` file.
+4. Configure the OAuth consent screen (make sure to add `http://localhost:3000` as an Authorized JavaScript origin and `http://localhost:3000/api/auth/callback/google` as an Authorized redirect URI for local development)
+5. Create OAuth 2.0 credentials (Web application type)
+6. Note down your Client ID and Client Secret.
 
 ### Local Development
 
 1. Clone the repository
-2. Create a `.env.local` file with your Google credentials:
+2. Copy the `.env.example` file to a new file named `.env.local` in the project root.
+3. Fill in your Google credentials and generate a `NEXTAUTH_SECRET` in the `.env.local` file:
    ```
+   # .env.local
    GOOGLE_CLIENT_ID=your_client_id
    GOOGLE_CLIENT_SECRET=your_client_secret
    NEXTAUTH_URL=http://localhost:3000
-   NEXTAUTH_SECRET=your_random_secret_key
+   # Generate a secret: openssl rand -base64 32
+   NEXTAUTH_SECRET=your_random_secret_key 
    ```
-3. Install dependencies: `pnpm install`
-4. Start the development server: `pnpm dev`
-5. Open [http://localhost:3000](http://localhost:3000) in your browser
+4. Install dependencies: `pnpm install`
+5. Start the development server: `pnpm dev`
+6. Open [http://localhost:3000](http://localhost:3000) in your browser
 
 ## How It Works
 

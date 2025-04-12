@@ -8,11 +8,18 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  output: 'export',
-  images: {
-    unoptimized: true,
+  webpack: (config, { isServer }) => {
+    // Fixes npm packages that depend on `fs` module
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback, // Spread existing fallbacks
+        fs: false, // Ignore fs module on client-side
+        encoding: false, // Ignore encoding module on client-side
+      };
+    }
+
+    return config;
   },
-  basePath: process.env.NODE_ENV === 'production' ? '/photo-analysis-app' : '',
 }
 
 export default nextConfig
