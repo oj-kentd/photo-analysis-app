@@ -45,11 +45,18 @@ jobs:
           NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
           NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
       
+      - name: Verify build directory
+        run: |
+          if [ ! -d "./out" ]; then
+            echo "Error: Build output directory './out' does not exist."
+            exit 1
+          fi
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
         with:
           name: build-artifact
-          path: ./out
+          path: ./.next
 
   deploy:
     environment:
